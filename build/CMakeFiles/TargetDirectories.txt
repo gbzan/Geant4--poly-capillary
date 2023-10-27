@@ -1,0 +1,7 @@
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/OpNovice.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/edit_cache.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/rebuild_cache.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/list_install_components.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/install.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/install/local.dir
+/home/test/xgy/G4simulation/OpNovice1-1e-3mra/build/CMakeFiles/install/strip.dir

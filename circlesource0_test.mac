@@ -1,0 +1,10 @@
+/gps/particle opticalphoton
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/energy 9 keV
+/gps/pos/centre -17000 0 0 mm
+/gps/pos/rot1 0 1 0
+/gps/pos/rot2 0 0 1
+/gps/pos/inner_radius 100 um
+/gps/pos/radius 202.4 um
+/gps/direction 1 0 0

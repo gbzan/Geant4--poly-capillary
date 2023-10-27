@@ -1,0 +1,14 @@
+/gps/particle opticalphoton
+/gps/energy 8.04 keV
+/gps/pos/type Plane
+/gps/pos/shape Circle
+/gps/pos/radius 25 um
+/gps/pos/centre 0 0 -78.5 mm
+/gps/ang/type cos
+/gps/ang/rot1 1 0 0
+/gps/ang/rot2 0 -1 0
+/gps/ang/mintheta 0. mrad
+/gps/ang/maxtheta 40. mrad
+/gps/ang/minphi 0. deg
+/gps/ang/maxphi 360. deg
+#/gps/ang/sigma_r 40. mrad

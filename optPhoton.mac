@@ -1,0 +1,9 @@
+/control/verbose 0
+/tracking/verbose 0
+/run/verbose 1
+/process/optical/verbose 1
+/control/cout/ignoreThreadsExcept 0
+/run/initialize
+/tracking/verbose 0
+/control/execute op2.mac
+/run/beamOn 32000000
