@@ -24,42 +24,56 @@
 // ********************************************************************
 //
 //
-/// \file OpNoviceActionInitialization.cc
-/// \brief Implementation of the OpNoviceActionInitialization class
+/// \file B2/B2a/src/TrackerHit.cc
+/// \brief Implementation of the B2::TrackerHit class
 
-#include "OpNoviceActionInitialization.hh"
-#include "OpNoviceEventAction.hh"
-#include "OpNovicePrimaryGeneratorAction.hh"
-#include "OpNoviceRunAction.hh"
-#include "OpNoviceStackingAction.hh"
-#include "OpNoviceSteppingAction.hh"
+#include "TrackerHit.hh"
+#include "G4UnitsTable.hh"
+#include "G4VVisManager.hh"
+#include "G4Circle.hh"
+#include "G4Colour.hh"
+#include "G4VisAttributes.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-OpNoviceActionInitialization::OpNoviceActionInitialization()
-  : G4VUserActionInitialization()
-{}
+#include <iomanip>
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-OpNoviceActionInitialization::~OpNoviceActionInitialization() {}
+G4ThreadLocal G4Allocator<TrackerHit>* TrackerHitAllocator = nullptr;
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void OpNoviceActionInitialization::BuildForMaster() const
+
+G4bool TrackerHit::operator==(const TrackerHit& right) const
 {
-  SetUserAction(new OpNoviceRunAction());
+  return ( this == &right ) ? true : false;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void OpNoviceActionInitialization::Build() const
-{
-  OpNovicePrimaryGeneratorAction* primary =
-    new OpNovicePrimaryGeneratorAction();
-  SetUserAction(primary);
-  OpNoviceRunAction* runAction = new OpNoviceRunAction(primary);
-  SetUserAction(runAction);
 
-  
-  OpNoviceEventAction* event = new OpNoviceEventAction(runAction);
-  SetUserAction(event);
-  // SetUserAction(new OpNoviceSteppingAction(event));
-  SetUserAction(new OpNoviceStackingAction());
+void TrackerHit::Draw()
+{
+  G4VVisManager* pVVisManager = G4VVisManager::GetConcreteInstance();
+  if(pVVisManager)
+  {
+    G4Circle circle(fPos);
+    circle.SetScreenSize(4.);
+    circle.SetFillStyle(G4Circle::filled);
+    G4Colour colour(1.,0.,0.);
+    G4VisAttributes attribs(colour);
+    circle.SetVisAttributes(attribs);
+    pVVisManager->Draw(circle);
+  }
 }
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+
+void TrackerHit::Print()
+{
+  // G4cout
+  //    << "  trackID: " << fTrackID << " chamberNb: " << fChamberNb
+  //    << "Edep: "
+  //    << std::setw(7) << G4BestUnit(fEdep,"Energy")
+  //    << " Position: "
+  //    << std::setw(7) << G4BestUnit( fPos,"Length")
+  //    << G4endl;
+}
+
+//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
+

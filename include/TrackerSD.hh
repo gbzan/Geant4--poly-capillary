@@ -24,42 +24,44 @@
 // ********************************************************************
 //
 //
-/// \file OpNoviceActionInitialization.cc
-/// \brief Implementation of the OpNoviceActionInitialization class
+/// \file B2/B2a/include/TrackerSD.hh
+/// \brief Definition of the B2::TrackerSD class
 
-#include "OpNoviceActionInitialization.hh"
-#include "OpNoviceEventAction.hh"
-#include "OpNovicePrimaryGeneratorAction.hh"
+#ifndef B2TrackerSD_h
+#define B2TrackerSD_h 1
+
+#include "G4VSensitiveDetector.hh"
+#include "globals.hh"
 #include "OpNoviceRunAction.hh"
-#include "OpNoviceStackingAction.hh"
-#include "OpNoviceSteppingAction.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-OpNoviceActionInitialization::OpNoviceActionInitialization()
-  : G4VUserActionInitialization()
-{}
+#include "TrackerHit.hh"
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-OpNoviceActionInitialization::~OpNoviceActionInitialization() {}
+#include <vector>
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void OpNoviceActionInitialization::BuildForMaster() const
+class G4Step;
+class G4HCofThisEvent;
+
+/// Tracker sensitive detector class
+///
+/// The hits are accounted in hits in ProcessHits() function which is called
+/// by Geant4 kernel at each step. A hit is created with each step with non zero
+/// energy deposit.
+
+class TrackerSD : public G4VSensitiveDetector
 {
-  SetUserAction(new OpNoviceRunAction());
-}
+  public:
+    TrackerSD(const G4String& name,
+                const G4String& hitsCollectionName);
+    ~TrackerSD() override = default;
 
-//....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void OpNoviceActionInitialization::Build() const
-{
-  OpNovicePrimaryGeneratorAction* primary =
-    new OpNovicePrimaryGeneratorAction();
-  SetUserAction(primary);
-  OpNoviceRunAction* runAction = new OpNoviceRunAction(primary);
-  SetUserAction(runAction);
+    // methods from base class
+    void   Initialize(G4HCofThisEvent* hitCollection) override;
+    G4bool ProcessHits(G4Step* step, G4TouchableHistory* history) override;
+    void   EndOfEvent(G4HCofThisEvent* hitCollection) override;
 
-  
-  OpNoviceEventAction* event = new OpNoviceEventAction(runAction);
-  SetUserAction(event);
-  // SetUserAction(new OpNoviceSteppingAction(event));
-  SetUserAction(new OpNoviceStackingAction());
-}
+  private:
+    TrackerHitsCollection* fHitsCollection = nullptr;
+    OpNoviceRunAction* fRunAction;
+};
+
+#endif

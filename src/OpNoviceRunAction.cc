@@ -45,6 +45,8 @@ OpNoviceRunAction::OpNoviceRunAction(OpNovicePrimaryGeneratorAction* prim)
   : G4UserRunAction()
   , fRun(nullptr)
   , fPrimary(prim)
+  , count(0)
+  , flag(0)
 {
   //实例化analysis
   //nstance()保证每一个类仅有一个实例，并为它提供一个全局访问点。
@@ -119,7 +121,7 @@ G4Run* OpNoviceRunAction::GenerateRun()
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
-void OpNoviceRunAction::BeginOfRunAction(const G4Run*)
+void OpNoviceRunAction::BeginOfRunAction(const G4Run* run)
 {
   if(fPrimary)
   {
@@ -128,6 +130,8 @@ void OpNoviceRunAction::BeginOfRunAction(const G4Run*)
     G4double energy = fPrimary->GetParticleGun()->GetParticleEnergy();
     fRun->SetPrimary(particle, energy);
   }
+
+  totalEvent = run -> GetNumberOfEvent();
 
   auto analysisManager = G4AnalysisManager::Instance();
   analysisManager -> OpenFile(fileName);

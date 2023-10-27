@@ -54,9 +54,19 @@ class OpNoviceRunAction : public G4UserRunAction
   void BeginOfRunAction(const G4Run*) override;
   void EndOfRunAction(const G4Run*) override;
 
+  G4int GetTotalEvent(){ return totalEvent; }
+  G4int GetCount(){ return count; }
+  void AddCount(){ count++; }
+  G4int GetFlag(){ return flag; }
+  void AddFlag(){ flag++; }
+
  private:
   OpNoviceRun* fRun;
   OpNovicePrimaryGeneratorAction* fPrimary;
+  G4int totalEvent;
+  G4int count;
+  //标记进度
+  G4int flag;
 };
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 #endif

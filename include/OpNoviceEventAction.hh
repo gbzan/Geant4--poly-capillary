@@ -36,6 +36,7 @@
 #include "globals.hh"
 #include "G4UserEventAction.hh"
 #include "OpNoviceRunAction.hh"
+#include "TrackerHit.hh"
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -66,7 +67,13 @@ class OpNoviceEventAction : public G4UserEventAction
   G4int fMie;
   G4int fBoundary;
   G4double fEdep;
+  G4int totalParticle;
+  //标记进度
+  G4int flag;
   // G4double fbeamRadius;
+
+  //fcollectionNo
+  G4int fDHC1ID;
 
   OpNoviceRunAction* fRunAction;
   

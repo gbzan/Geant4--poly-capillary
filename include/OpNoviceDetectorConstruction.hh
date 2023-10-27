@@ -33,6 +33,9 @@
 
 #include "globals.hh"
 #include "G4VUserDetectorConstruction.hh"
+#include "G4SDManager.hh"
+#include "TrackerSD.hh"
+
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
@@ -53,6 +56,8 @@ class OpNoviceDetectorConstruction : public G4VUserDetectorConstruction
   ~OpNoviceDetectorConstruction();
 
   G4VPhysicalVolume* Construct() override;
+  void ConstructSDandField() override;
+
   void SetDumpGdml(G4bool);
   G4bool IsDumpGdml() const;
   void SetVerbose(G4bool verbose);
@@ -74,7 +79,7 @@ class OpNoviceDetectorConstruction : public G4VUserDetectorConstruction
  private:
   void PrintError(G4String);
 
-  G4LogicalVolume*  fScoringVolume = nullptr;
+  G4LogicalVolume*  fScoringVolume = nullptr; 
 
   G4Material*       fLensMaterial = nullptr;  // pointer to the target  material
   G4Material*       fWorldMaterial = nullptr; // pointer to the chamber material
